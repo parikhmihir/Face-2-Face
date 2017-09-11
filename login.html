@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<head>
+	<title>Face2Face | Login</title>
+	<link rel="stylesheet" href="style.css"  /> 
+	<style type="text/css">
+	</style>
+</head>
+<body id="login_body">
+<nav id="navbar">
+<ul>
+		<li><img src="meeting.jpg" height="65px" width="65px"></li>
+		<li><a href="/">Home</a></li>
+		<li><a href="event.html">Events</a></li>
+		<li><a href="meeting.html">Fix a meeting</a></li>
+		<li><a href="signup.html">Login/Signup</a></li>
+</ul>
+</nav>
+<div id="login">
+	<h2 align="center">LOGIN HERE...</h2>
+	<form name="login" method="post" action="/login">
+		<table cellpadding="3" cellspacing="5">
+			</tr>
+				<td>Username</td>
+				<td><input type="text" name="username" placeholder="Enter username" required>
+				</td>
+			</tr>
+			<tr>
+				<td>Password</td>
+				<td><input type="password" name="password" placeholder="Enter password"required>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2"><input type="submit" value="Login" name="submit">
+				</td>
+			</tr>
+		</table>
+	</form>
+</div>
+<footer id="footer" style="margin-top: 250px">
+	<a href="/">Face2Face</a> is developed for study purpose as a project for <a href="https://dashboard.hasura.io/login">Hasura</a> internship only.
+	This webapp is not for any commercial purpose.
+</footer>
+</body>
+</html>

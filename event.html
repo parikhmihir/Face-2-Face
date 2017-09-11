@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<head>
+	<title>Face2Face | Event</title>
+	<link rel="stylesheet" href="style.css"  /> 
+</head>
+<body>
+<nav id="navbar">
+<ul>
+		<li><img src="meeting.jpg" height="65px" width="65px"></li>
+		<li><a href="/">Home</a></li>
+		<li><a href="">Events</a></li>
+		<li><a href="meeting.html">Fix a meeting</a></li>
+		<li><a href="signup.html">Login/Signup</a></li>
+</ul>
+</nav>
+<center>
+	Create an event here!
+</center>
+<div id="submit" style="margin-top: 20px">
+	<h2 align="center">Enter the event details...</h2>
+	<form name="create_event" method="post" action="/event">
+		<table cellpadding="3" cellspacing="5">
+			<tr>
+				<td>Event Name</td>
+				<td><input type="text" name="e_name" placeholder="Enter your Event name" required>
+				</td>
+			</tr>
+			<tr>
+				<td>Event Description</td>
+				<td><input type="text" name="e_description" placeholder="Enter the description of your event" required>
+				</td>
+			</tr>
+			<tr>
+				<td>Place</td>
+				<td><input type="text" name="e_place" placeholder="Enter your event place" required>
+				</td>
+			</tr>
+			<tr>
+				<td>Participant Limit</td>
+				<td><input type="number" name="participant_limit" placeholder="Enter number of participants allowed" required>
+				</td>
+			</tr>
+			<tr>
+				<td>Age Group</td>
+				<td><input type="text" name="age_group" placeholder="Enter age group for the event" required>
+				</td>
+			</tr>
+			<tr>
+				<td>Start Time</td>
+				<td><input type="number" name="start_time" placeholder="Enter start time for the event" required>
+				</td>
+			</tr>
+			<tr>
+				<td>Duration</td>
+				<td><input type="number" name="duration" placeholder="Enter the duration in hours for the event" required>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2"><input type="submit" name="submit" value="Create Event">
+				</td>
+			</tr>
+		</table>
+	</form>
+</div>
+<script type="text/javascript" src="script.js"></script>
+<footer id="footer">
+	<a href="/">Face2Face</a> is developed for study purpose as a project for <a href="https://dashboard.hasura.io/login">Hasura</a> internship only.
+	This webapp is not for any commercial purpose.
+</footer>
+</body>
+</html>

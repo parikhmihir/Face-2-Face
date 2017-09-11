@@ -1,0 +1,74 @@
+#about{
+	background-color: rgba(0,0,0,0.2);
+	opacity: 0.8;
+	margin-left: 80px;
+	margin-right: 800px;
+	margin-top: 90px;
+	border-radius: 10px;
+	width: 30%;
+}
+#footer{
+	margin-top: 60px;
+	text-align: center;
+	padding: 7px;
+	background-color: aqua;
+	border-radius: 5px;
+}
+#index_body{
+	background: url(home.jpg);
+	background-size: cover;
+
+}
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding:10px ;
+    overflow: hidden;
+    background-color: #333;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover:not(.active) {
+    background-color: #111;
+}
+
+.active {
+    background-color: #4CAF50;
+}
+#submit, #meeting_form, #login{
+	margin-top: 50px;
+	margin-left: 400px;
+	margin-right: 400px;
+	background-color: grey;
+	padding: 20px;
+	border-radius: 15px;
+}
+*{
+	font-size: 18px;	
+}
+input [type=text], input[type=password], input[type=submit], input[type=email], input[type=number], input[type=reset]
+{
+	padding: 10px,10px;
+	display: inline-block;
+	border: 1px solid #ccc;
+    border-radius: 4px;
+}
+#login_button{
+	background-color: aqua;
+	border-radius: 10px;
+	padding: 10px;
+}
+table{
+	text-align: center;	
+}
