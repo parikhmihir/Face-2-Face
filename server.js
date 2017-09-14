@@ -34,29 +34,27 @@ app.post("/signup",urlencodedParser,function(req,res){
   var request = require("request");
   var options = {
     method: 'POST',
-    url: 'https://auth.citric19.hasura-app.io/signup',
+    url: 'https://auth.barely81.hasura-app.io/signup',
     headers:
      {
        'cache-control': 'no-cache',
        'content-type': 'application/json' },
-    body: {"username":username, "password":password},
+    body: {username:"username", password:"password"},
     json: true };
 request(options, function (error, response, body) {
     if (error) throw new Error(error);
     console.log(body);
     code=response.statusCode;
     if(code==200){
-     token= body.auth_token;
      //console.log("token is "+token);
 
      var request1 = require("request");
 
      var options = { method: 'POST',
-       url: 'https://auth.citric19.hasura-app.io/signup',
+       url: 'https://auth.barely81.hasura-app.io/signup',
        headers:
         {
           'cache-control': 'no-cache',
-          'Authorization': 'Bearer '+token,
           'content-type': 'application/json' },
        body:
         { type: 'insert',
@@ -83,6 +81,42 @@ request(options, function (error, response, body) {
 });
 });
 
+app.post("/login",urlencodedParser,function(req,res){
+
+  var username=req.body.username;
+  var password=req.body.password;
+  var temp;
+  console.log(username);
+  console.log(password);
+    var req = new XMLHttpRequest();
+    req.open('POST', 'https://auth.barely81.hasura-app.io/login', true);
+     // force XMLHttpRequest2
+    req.withCredentials=true;
+    req.setRequestHeader('Content-Type', 'application/json');
+    req.send(JSON.stringify({username:"username",password:"password"}));
+     // pass along cookies
+    req.onload = function()  {
+        // store token and redirect
+        try {
+            temp = JSON.parse(req.responseText);
+            code=req.status;
+            console.log(temp);
+            console.log(code);
+            if(code==200){
+              res.cookie('randomcookiename',temp, { maxAge: 345600000});
+              console.log("Successfully logged in");
+              res.redirect('/')
+            }
+            else {
+            res.status(code).send(temp);
+            }
+        } catch (error) {
+            return error;
+        }
+    };
+
+});
+
 app.post("/event",urlencodedParser,function(req,res){
   var e_name=req.body.e_name;
   var e_description=req.body.e_description;
@@ -94,7 +128,7 @@ app.post("/event",urlencodedParser,function(req,res){
   var request = require("request");
   var options = {
     method: 'POST',
-    url: 'https://data.citric19.hasura-app.io/v1/query',
+    url: 'https://data.barely81.hasura-app.io/v1/query',
     headers:
      {
        'cache-control': 'no-cache',
@@ -112,7 +146,7 @@ request(options, function (error, response, body) {
      var request1 = require("request");
 
      var options = { method: 'POST',
-       url: 'https://data.citric19.hasura-app.io/v1/query',
+       url: 'https://data.barely81.hasura-app.io/v1/query',
        headers:
         {
           'cache-control': 'no-cache',
@@ -146,41 +180,7 @@ request(options, function (error, response, body) {
 });
 });
 
-app.post("/login",urlencodedParser,function(req,res){
 
-  var username=req.body.username;
-  var password=req.body.password;
-  var temp;
-  console.log(username);
-  console.log(password);
-    var req = new XMLHttpRequest();
-    req.open('POST', 'https://auth.citric19.hasura-app.io/login', true);
-     // force XMLHttpRequest2
-    req.withCredentials=true;
-    req.setRequestHeader('Content-Type', 'application/json');
-    req.send(JSON.stringify({"username":"username","password":"password"}));
-     // pass along cookies
-    req.onload = function()  {
-        // store token and redirect
-        try {
-            temp = JSON.parse(req.responseText);
-            code=req.status;
-            console.log(temp);
-            console.log(code);
-            if(code==200){
-              res.cookie('randomcookiename',temp, { maxAge: 345600000});
-              console.log("Successfully logged in");
-              res.redirect('/')
-            }
-            else {
-            res.status(code).send(temp);
-            }
-        } catch (error) {
-            return error;
-        }
-    };
-
-});
 
 app.get('/style.css', function (req, res) {   // Handling specific URL's
   res.sendFile(path.join(__dirname, 'ui', 'style.css'));
