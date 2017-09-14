@@ -39,9 +39,9 @@ app.post("/signup",urlencodedParser,function(req,res){
      {
        'cache-control': 'no-cache',
        'content-type': 'application/json' },
-    body: {username:"username", password:"password"},
+    body: {username:"req.body.username", password:"req.body.password"},
     json: true };
-request(options, function (error, response, body) {
+	request(options, function (error, response, body) {
     if (error) throw new Error(error);
     console.log(body);
     code=response.statusCode;
@@ -62,8 +62,8 @@ request(options, function (error, response, body) {
            { table: 'user_info',
              objects:
               [ {
-                username:"username",
-                password:"password"} ] } },
+                username:"req.body.username",
+                password:"req.body.password"} ] } },
        json: true };
 
      request1(options, function (error, response, body) {
@@ -71,7 +71,8 @@ request(options, function (error, response, body) {
 
        console.log('body '+body);
        console.log("code "+response.status_code);
- })}
+ });
+ }
  else if(code==409){
    res.send("username already exists");
  }
