@@ -39,7 +39,7 @@ app.post("/signup",urlencodedParser,function(req,res){
      {
        'cache-control': 'no-cache',
        'content-type': 'application/json' },
-    body: {username:"req.body.username", password:"req.body.password"},
+    body: {username:"req.username", password:"req.password"},
     json: true };
 	request(options, function (error, response, body) {
     if (error) throw new Error(error);
@@ -62,8 +62,8 @@ app.post("/signup",urlencodedParser,function(req,res){
            { table: 'user_info',
              objects:
               [ {
-                username:"req.body.username",
-                password:"req.body.password"} ] } },
+                username:"req.username",
+                password:"req.password"} ] } },
        json: true };
 
      request1(options, function (error, response, body) {
