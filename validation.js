@@ -2,7 +2,6 @@ function validate()
 {
 	var fname=document.getElementById("fname");
 	var lname=document.getElementById("lname");
-	var contact=document.getElementById("contact");
 	var password=document.getElementById("password");
     if(fname.value==null || fname.value=="")
 	{
@@ -26,24 +25,6 @@ function validate()
 	else{
 		alert("Last name can have only letters");
 		lname.focus();
-		return false;
-	}
-	if(contact.value==null || contact.value==" ")
-	{
-		alert("Please Enter Mobile Number");
-		contact.focus();
-		return false;
-	}
-	if (isNaN(contact.value))
-	{
-		alert(" Your Mobile Number must be Integers");
-		contact.focus();
-		return false;
-	}
-	if((contact.value.length!= 10))
-	{
-		alert("Enter the valid Mobile Number(Like : 9999999999)");
-		contact.focus();
 		return false;
 	}
  	if(password.value.length< 8)
