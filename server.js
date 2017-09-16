@@ -39,7 +39,7 @@ app.post("/signup",urlencodedParser,function(req,res){
      {
        'cache-control': 'no-cache',
        'content-type': 'application/json' },
-    body: {username:"req.username", password:"req.password"},
+    body: {username:username, password:password},
     json: true };
 	request(options, function (error, response, body) {
     if (error) throw new Error(error);
@@ -51,7 +51,7 @@ app.post("/signup",urlencodedParser,function(req,res){
      var request1 = require("request");
 
      var options = { method: 'POST',
-       url: 'https://auth.barely81.hasura-app.io/signup',
+       url: 'https://data.barely81.hasura-app.io/v1/query',
        headers:
         {
           'cache-control': 'no-cache',
@@ -62,13 +62,13 @@ app.post("/signup",urlencodedParser,function(req,res){
            { table: 'user_info',
              objects:
               [ {
-                username:"req.username",
-                password:"req.password"} ] } },
+                username:username,
+                password:password} ] } },
        json: true };
 
      request1(options, function (error, response, body) {
        //if (error) throw new Error(error);
-
+       res.send("Successfully registered")
        console.log('body '+body);
        console.log("code "+response.status_code);
  });
@@ -94,7 +94,7 @@ app.post("/login",urlencodedParser,function(req,res){
      // force XMLHttpRequest2
     req.withCredentials=true;
     req.setRequestHeader('Content-Type', 'application/json');
-    req.send(JSON.stringify({username:"username",password:"password"}));
+    req.send(JSON.stringify({username:username,password:password}));
      // pass along cookies
     req.onload = function()  {
         // store token and redirect
@@ -106,7 +106,7 @@ app.post("/login",urlencodedParser,function(req,res){
             if(code==200){
               res.cookie('randomcookiename',temp, { maxAge: 345600000});
               console.log("Successfully logged in");
-              res.redirect('/')
+              res.redirect('/');
             }
             else {
             res.status(code).send(temp);
