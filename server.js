@@ -5,7 +5,6 @@ var bodyParser=require("body-parser");
 var urlencodedParser=bodyParser.urlencoded({extended:false});
 //your routes here
 
-
 app.get('/', function (req, res) {   // Handling specific URL's
   res.sendFile(path.join(__dirname, 'ui', 'index.html'));
 });
@@ -42,6 +41,7 @@ app.post("/signup",urlencodedParser,function(req,res){
     body: {username:username, password:password},
     json: true };
 	request(options, function (error, response, body) {
+		var hasuraid=response.body.hasura_id;
     if (error) throw new Error(error);
     console.log(body);
     code=response.statusCode;
@@ -62,12 +62,14 @@ app.post("/signup",urlencodedParser,function(req,res){
            { table: 'user_info',
              objects:
               [ {
+                u_id:hasuraid,
                 username:username,
                 password:password} ] } },
        json: true };
 
      request1(options, function (error, response, body) {
        //if (error) throw new Error(error);
+       code=response.statusCode;
        res.send("Successfully registered")
        console.log('body '+body);
        console.log("code "+response.status_code);
@@ -115,7 +117,6 @@ app.post("/login",urlencodedParser,function(req,res){
             return error;
         }
     };
-
 });
 
 app.post("/event",urlencodedParser,function(req,res){
