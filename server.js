@@ -277,8 +277,6 @@ app.post("/meeting", urlencodedParser, function (req, res) {
 	        }
         
     }
-    
-}
     },
     json: true
   };
@@ -286,7 +284,7 @@ app.post("/meeting", urlencodedParser, function (req, res) {
     if (error) throw new Error(error);
     var status_code = response.statusCode;
     if (status_code === 200) {
-      res.send();
+      res.send(); // Send fname lname addr_street addr_city on screen
     } else if (status_code == 409) {
       res.send("No match found for the mentioned hobby or occupation");
     } else {
