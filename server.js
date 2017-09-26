@@ -297,7 +297,7 @@ app.post("/meeting", urlencodedParser, function (req, res) {
     if (status_code === 200) {
       var content = "";
 for(var i=0; i<response.body.length;i++){
-    content+="<p>Name: "+response.body[i].fname+" "+response.body[i].lname+"</p>"+"<p>Contact: "+response.body[i].contact+"</p>"+"<p>Address: "+response.body[i].addr_street+" "+response.body[i].addr_city+"</p>"
+    content+="<p>Name: "+response.body[i].fname+" "+response.body[i].lname+"Contact: "+response.body[i].contact+"Address: "+response.body[i].addr_street+" "+response.body[i].addr_city+"</p>"
 }
 res.send(content);
     } else if (status_code == 409) {
