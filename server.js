@@ -20,14 +20,21 @@ var data_url = "https://data.barely81.hasura-app.io/v1/query";
  * @param {Request} req 
  * @returns {Object} contains user id and auth token
  */
+/**
+ * Parse the cookie and return the user object containing user id and auth token
+ * @param {Request} req 
+ * @returns {Object} contains user id and auth token
+ */
 function getUserDetails(req) {
   var user_obj = {
     "user_id": null,
     "auth_token": null
   }
   var cookies = req.cookies;
-  user_obj.user_id = cookies.randomcookiename.hasura_id;
-  user_obj.auth_token = cookies.randomcookiename.auth_token;
+  if (cookies.randomcookiename) {
+    user_obj.user_id = cookies.randomcookiename.hasura_id;
+    user_obj.auth_token = cookies.randomcookiename.auth_token;
+  }
   return user_obj;
 }
 /**
@@ -59,7 +66,11 @@ function deleteUser(user_id, password, auth_token) {
 
 //routes
 app.get('/', function (req, res) { // Handling specific URL's
-  res.sendFile(path.join(__dirname, 'ui', 'index.html'));
+  if (getUserDetails(req).user_id === null) {
+    res.sendFile(path.join(__dirname, 'ui', 'index.html'));
+  } else {
+    res.sendFile(path.join(__dirname, 'ui', 'user-home.html'));
+  }
 });
 
 app.get('/event.html', function (req, res) { // Handling specific URL's
@@ -271,12 +282,16 @@ app.post("/meeting", urlencodedParser, function (req, res) {
     "args" : {
         "table" : "user_info",
         "columns": ["u_id","fname","lname","addr_city","addr_street"],
-        "where": {"hobby": "Cricket",
-        "occupation": "Student"
-    	    	
-	        }
-        
+        "where": {"hobby": hobby,
+        "occupation": occupation	
+	        }  
+
     }
+    var content = "";
+for(var i=0; i<response.body.length;i++){
+    content+="<p>Name: "+response.body[i].fname+" "+response.body[i].lname+"</p>"
+}
+res.send(content);
     },
     json: true
   };
@@ -284,7 +299,11 @@ app.post("/meeting", urlencodedParser, function (req, res) {
     if (error) throw new Error(error);
     var status_code = response.statusCode;
     if (status_code === 200) {
-      res.send(); // Send fname lname addr_street addr_city on screen
+      var content = "";
+for(var i=0; i<response.body.length;i++){
+    content+="<p>Name: "+response.body[i].fname+" "+response.body[i].lname+"</p>"
+}
+res.send(content);
     } else if (status_code == 409) {
       res.send("No match found for the mentioned hobby or occupation");
     } else {
@@ -292,6 +311,7 @@ app.post("/meeting", urlencodedParser, function (req, res) {
     }
   });
 });
+
 app.get('/logout', function (req, res) {
   var user_id = getUserDetails(req).user_id;
   var auth_token = getUserDetails(req).auth_token;
@@ -309,6 +329,7 @@ app.get('/logout', function (req, res) {
     //console.log(body);
     var status_code = response.statusCode;
     if (status_code === 200) {
+      res.clearCookie("randomcookiename");
       res.redirect("/login.html");
     } else {
       res.redirect("/");
