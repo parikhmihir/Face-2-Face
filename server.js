@@ -95,6 +95,7 @@ app.post("/signup", urlencodedParser, function (req, res) {
   var fname = req.body.fname;
   var lname = req.body.lname;
   var gender = req.body.gender;
+  var contact = req.body.contact;
   var addr_building = req.body.addr_building;
   var addr_street = req.body.addr_street;
   var addr_city = req.body.addr_city;
@@ -141,6 +142,7 @@ app.post("/signup", urlencodedParser, function (req, res) {
                 fname: fname,
                 lname: lname,
                 gender: gender,
+                contact: contact,
                 addr_building: addr_building,
                 addr_street: addr_street,
                 addr_city: addr_city,
@@ -281,19 +283,13 @@ app.post("/meeting", urlencodedParser, function (req, res) {
     "type" : "select",
     "args" : {
         "table" : "user_info",
-        "columns": ["u_id","fname","lname","addr_city","addr_street"],
+        "columns": ["u_id","fname","lname","addr_city","addr_street","contact"],
         "where": {"hobby": hobby,
         "occupation": occupation	
 	        }  
 
     }
-    var content = "";
-for(var i=0; i<response.body.length;i++){
-    content+="<p>Name: "+response.body[i].fname+" "+response.body[i].lname+"</p>"
-}
-res.send(content);
-    },
-    json: true
+    },json: true
   };
   request(options, function (error, response, body) {
     if (error) throw new Error(error);
@@ -301,7 +297,7 @@ res.send(content);
     if (status_code === 200) {
       var content = "";
 for(var i=0; i<response.body.length;i++){
-    content+="<p>Name: "+response.body[i].fname+" "+response.body[i].lname+"</p>"
+    content+="<p>Name: "+response.body[i].fname+" "+response.body[i].lname+"</p>"+"<p>Contact: "+response.body[i].contact+"</p>"+"<p>Address: "+response.body[i].addr_street+" "+response.body[i].addr_city+"</p>"
 }
 res.send(content);
     } else if (status_code == 409) {
